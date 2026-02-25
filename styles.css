@@ -141,4 +141,24 @@ footer {
   .grid.two { grid-template-columns: 1fr 1fr; }
   .grid.three { grid-template-columns: 1fr 1fr 1fr; }
   .brand h1 { font-size: 1.7rem; }
+
+}
+
+.site-logo {
+    height: 50px; /* Adjust this height to fit your header */
+    width: auto;  /* Keeps the logo from stretching */
+    display: block;
+    margin: 10px 0;
+}
+
+.logo-link {
+    text-decoration: none; /* Removes underline if logo is a link */
+}
+
+/* Adjust for mobile if needed */
+@media (max-width: 720px) {
+    .site-logo {
+        height: 40px; 
+        margin: 5px auto; /* Centers the logo on mobile */
+    }
 }
