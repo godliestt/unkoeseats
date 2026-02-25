@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unko E’s Eats | About</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div>
+          <h1>Unko E’s Eats</h1>
+          <p class="muted">About the restaurant</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contactus.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <h2>Our Story</h2>
+      <p>
+        Unko E’s Eats is a fictional, locally owned dine-in and catering restaurant in Kapolei, Hawaiʻi.
+        The concept is built around Hawaiian BBQ and local comfort food served fast, friendly, and consistent.
+      </p>
+      <p class="notice">
+        This is a front-end capstone project website. No ordering or database features are implemented.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>What We’re About</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Local Flavor</h3>
+          <p class="muted">Comfort food that feels familiar, with modern presentation.</p>
+        </div>
+        <div class="card">
+          <h3>Catering Ready</h3>
+          <p class="muted">Simple catering options built for gatherings and events.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Unko E’s Eats — Academic Project (Fictional)
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

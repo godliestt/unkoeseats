@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unko E’s Eats | Menu</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div>
+          <h1>Unko E’s Eats</h1>
+          <p class="muted">Menu (front-end display)</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contactus.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <h2>Menu</h2>
+      <p class="muted">Filter items:</p>
+
+      <label for="menuFilter">Show:</label>
+      <select id="menuFilter">
+        <option value="all">All</option>
+        <option value="plate">Plates</option>
+        <option value="bowl">Bowls</option>
+        <option value="sides">Sides</option>
+        <option value="drinks">Drinks</option>
+        <option value="catering">Catering</option>
+      </select>
+    </section>
+
+    <section class="section">
+      <h2>Items</h2>
+      <div class="grid two">
+        <div class="card" data-menu-item data-tags="plate">
+          <h3>Chicken Katsu Plate - $12</h3>
+          <p class="muted">Classic panko-fried chicken, housemade tonkatsu sauce, rice, mac salad.</p>
+        </div>
+        
+        <div class="card" data-menu-item data-tags="plate">
+          <h3>Barbeque Chicken Plate - $12</h3>
+          <p class="muted">Grilled chicken glazed with housemade smoky barbecue sauce, rice, mac salad.</p>
+        </div>
+
+        <div class="card" data-menu-item data-tags="plate">
+          <h3>Kalbi Plate - $14</h3>
+          <p class="muted">Classic Korean-style short ribs, rice, mac salad.</p>
+        </div>
+
+        <div class="card" data-menu-item data-tags="bowl">
+          <h3>Poke Bowl - $8</h3>
+          <p class="muted">California style ahi tuna over a bed of rice.</p>
+        </div>
+
+        <div class="card" data-menu-item data-tags="sides">
+          <h3>Mac Salad - $4</h3>
+          <p class="muted">Classic macaroni salad.</p>
+        </div>
+        
+        <div class="card" data-menu-item data-tags="sides">
+          <h3>Kimchi Cucumber - $4</h3>
+          <p class="muted">Spicy pickled cucumbers in kimchi marinade.</p>
+        </div>
+
+        <div class="card" data-menu-item data-tags="drinks">
+          <h3>Juice - $3</h3>
+          <p class="muted">Pick from our selection of Hawaiian Sun® or Aloha Maid® canned juice.</p>
+        </div>
+
+        <div class="card" data-menu-item data-tags="catering">
+          <h3>Catering Tray (feeds 10) - $100</h3>
+          <p class="muted">Pick 2 proteins; comes with 2 sides. Request via Contact page.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Unko E’s Eats — Academic Project (Fictional)
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
