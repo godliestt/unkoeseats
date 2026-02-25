@@ -144,23 +144,18 @@ footer {
 
 }
 
-/* This "constrains" the logo so it doesn't take over the page */
 .site-logo {
-    height: 60px;    /* This is the magic number. Change it to 50px or 80px to suit your eye */
-    width: auto;      /* This ensures the logo stays proportional and not squished */
-    display: block;   /* Prevents weird spacing issues */
-    margin: 5px 0;    /* Adds a little breathing room above and below */
+    height: 120px;    /* Increased from 60px to 120px */
+    width: auto;      /* Keeps it from looking squished */
+    display: block;
+    margin: 10px 0;   /* Slightly more space around it */
 }
 
-.logo-link {
-    text-decoration: none; /* Removes underline if logo is a link */
-}
-
-/* Adjust for mobile if needed */
+/* Adjust for mobile so it doesn't take up the whole screen */
 @media (max-width: 720px) {
     .site-logo {
-        height: 40px; 
-        margin: 5px auto; /* Centers the logo on mobile */
+        height: 80px; 
+        margin: 5px auto;
     }
 }
 
