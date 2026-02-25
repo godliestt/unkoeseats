@@ -144,11 +144,12 @@ footer {
 
 }
 
+/* This "constrains" the logo so it doesn't take over the page */
 .site-logo {
-    height: 50px; /* Adjust this height to fit your header */
-    width: auto;  /* Keeps the logo from stretching */
-    display: block;
-    margin: 10px 0;
+    height: 60px;    /* This is the magic number. Change it to 50px or 80px to suit your eye */
+    width: auto;      /* This ensures the logo stays proportional and not squished */
+    display: block;   /* Prevents weird spacing issues */
+    margin: 5px 0;    /* Adds a little breathing room above and below */
 }
 
 .logo-link {
@@ -162,3 +163,4 @@ footer {
         margin: 5px auto; /* Centers the logo on mobile */
     }
 }
+
