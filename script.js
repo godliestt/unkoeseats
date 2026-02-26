@@ -27,33 +27,45 @@ function menuFilterInit() {
 }
 
 function contactFormInit() {
-  const form = document.getElementById("contactForm");
-  if (!form) return;
+    const form = document.getElementById("contactForm");
+    if (!form) return;
+    const msg = document.getElementById("contactMsg");
 
-  const msg = document.getElementById("contactMsg");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        const name = form.elements["name"]?.value.trim();
+        const phone = form.elements["phone"]?.value.trim();
+        const email = form.elements["email"]?.value.trim();
+        const details = form.elements["details"]?.value.trim();
+        const inquiryTypes = Array.from(form.querySelectorAll('input[name="inquiry"]:checked')).map(i => i.value);
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+        if (!name || !email || !details) {
+            msg.className = "notice bad";
+            msg.textContent = "Please fill out Name, Email, and Description before submitting.";
+            return;
+        }
 
-    const name = form.elements["name"]?.value.trim();
-    const phone = form.elements["phone"]?.value.trim();
-    const email = form.elements["email"]?.value.trim();
-    const details = form.elements["details"]?.value.trim();
+        // NEW: Logic to save to LocalStorage
+        const contactEntry = {
+            name,
+            phone,
+            email,
+            details,
+            inquiries: inquiryTypes,
+            submittedAt: new Date().toISOString()
+        };
 
-    const inquiryTypes = Array.from(form.querySelectorAll('input[name="inquiry"]:checked')).map(i => i.value);
+        const key = "unkoe_contacts";
+        const existingInquiries = JSON.parse(localStorage.getItem(key) || "[]");
+        existingInquiries.unshift(contactEntry);
+        localStorage.setItem(key, JSON.stringify(existingInquiries.slice(0, 20)));
 
-    if (!name || !email || !details) {
-      msg.className = "notice bad";
-      msg.textContent = "Please fill out Name, Email, and Description before submitting.";
-      return;
-    }
-
-    // front-end only: show confirmation
-    msg.className = "notice good";
-    msg.textContent = `Thanks, ${name}! We received your message${inquiryTypes.length ? " (" + inquiryTypes.join(", ") + ")" : ""}.`;
-
-    form.reset();
-  });
+        // Show confirmation
+        msg.className = "notice good";
+        msg.textContent = `Thanks, ${name}! Your message has been saved to the browser.`;
+        form.reset();
+    });
 }
 
 function feedbackFormInit() {
@@ -102,3 +114,4 @@ document.addEventListener("DOMContentLoaded", () => {
   feedbackFormInit();
 
 });
+
