@@ -89,7 +89,7 @@ function feedbackFormInit() {
     localStorage.setItem(key, JSON.stringify(existing.slice(0, 20)));
 
     msg.className = "notice good";
-    msg.textContent = "Mahalo! Your feedback was saved locally in this browser (front-end only).";
+    msg.textContent = "Mahalo! Your feedback is greatly appreciated.";
 
     form.reset();
   });
@@ -100,4 +100,5 @@ document.addEventListener("DOMContentLoaded", () => {
   menuFilterInit();
   contactFormInit();
   feedbackFormInit();
+
 });
