@@ -20,23 +20,54 @@ header {
   border-bottom: 1px solid #e6e6e6;
   background: #ffffff;
 }
+/* Updated Brand & Logo Section */
 .brand {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
+  align-items: center; /* Vertically centers the logo with the text */
+  gap: 20px;           /* Puts space between logo and text */
   padding: 16px 0;
 }
+
+.logo-img {
+  height: 100px;       /* This shrinks the "humangous" image */
+  width: auto;         /* Keeps it from looking squished */
+  flex-shrink: 0;      /* Stops it from shrinking on small screens */
+}
+
 .brand h1 {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.7rem;
+  color: #e64a19;      /* Sunset Orange - change this to match your logo! */
 }
+
 .brand p {
   margin: 0;
   font-size: 0.95rem;
-  color: #444;
+  color: #555;
 }
 
+/* Updated Nav for better visibility */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 0 16px 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #111;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+nav a[aria-current="page"] {
+  border-color: #e64a19;
+  color: #e64a19;
+  font-weight: 700;
+}
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -158,4 +189,5 @@ footer {
         margin: 5px auto;
     }
 }
+
 
