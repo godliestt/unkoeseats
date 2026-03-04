@@ -10,7 +10,7 @@
 /* Apply Inter to everything by default */
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--coastal-white); /* Using the variable from earlier */
+  background-color: var(--coastal-white);
   color: var(--lava-black);
 }
 
@@ -18,7 +18,7 @@ body {
 h1, h2, h3, .brand h1 {
   font-family: 'Sansita', sans-serif;
   font-weight: 700;
-  letter-spacing: 0.5px; /* Sansita looks great with a tiny bit of extra space */
+  letter-spacing: 0.5px;
 }
 
 /* Keeping the nav clean with Inter */
@@ -47,7 +47,7 @@ header {
 }
 
 .logo-img {
-  height: 100px;       /* This shrinks the "humangous" image */
+  height: 200px;       /* Shrinks image */
   width: auto;         /* Keeps it from looking squished */
   flex-shrink: 0;      /* Stops it from shrinking on small screens */
 }
@@ -207,6 +207,7 @@ footer {
         margin: 5px auto;
     }
 }
+
 
 
 
