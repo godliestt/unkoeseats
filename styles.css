@@ -13,7 +13,6 @@
 /* --- Base Styles --- */
 body {
   font-family: 'Inter', sans-serif;
-  font-weight: 400; /* Normal weight for regular text */
   background-color: var(--e-white);
   color: var(--e-black);
   margin: 0;
@@ -21,16 +20,13 @@ body {
   line-height: 1.5;
 }
 
-/* Main Headers (H1, H2) - Sansita Bold, Cream */
 h1, h2 {
   font-family: 'Sansita', sans-serif;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: var(--e-cream);
-  margin-top: 0;
 }
 
-/* Subheaders (H3) - Inter Bold, Black */
 h3 {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
@@ -198,4 +194,5 @@ footer {
     text-align: center;
   }
 }
+
 
