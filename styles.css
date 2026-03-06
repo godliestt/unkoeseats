@@ -186,7 +186,7 @@ footer {
 
 @media (max-width: 720px) {
   .logo-img, .site-logo {
-    height: 80px;
+    height: 180px;
     margin: 5px auto;
   }
   .brand {
@@ -194,6 +194,7 @@ footer {
     text-align: center;
   }
 }
+
 
 
 
