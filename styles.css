@@ -54,7 +54,7 @@ header {
 }
 
 .logo-img {
-  height: 350px; /* Increased slightly to serve as the main header */
+  height: 270px; /* Increased slightly to serve as the main header */
   width: auto;
   display: block;
 }
@@ -194,6 +194,7 @@ footer {
     text-align: center;
   }
 }
+
 
 
 
