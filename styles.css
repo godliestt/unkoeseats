@@ -13,6 +13,7 @@
 /* --- Base Styles --- */
 body {
   font-family: 'Inter', sans-serif;
+  font-weight: 400; /* Normal weight for regular text */
   background-color: var(--e-white);
   color: var(--e-black);
   margin: 0;
@@ -20,11 +21,22 @@ body {
   line-height: 1.5;
 }
 
-h1, h2, h3 {
+/* Main Headers (H1, H2) - Sansita Bold, Cream */
+h1, h2 {
   font-family: 'Sansita', sans-serif;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: var(--e-red);
+  color: var(--e-cream);
+  margin-top: 0;
+}
+
+/* Subheaders (H3) - Inter Bold, Black */
+h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: var(--e-black);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 
 .container {
@@ -40,54 +52,43 @@ header {
 
 .brand {
   display: flex;
+  justify-content: center; /* Centers the logo */
   align-items: center;
-  gap: 20px;
   padding: 16px 0;
 }
 
-.logo-img, .site-logo {
-  height: 120px;
+.logo-img {
+  height: 150px; /* Increased slightly to serve as the main header */
   width: auto;
-  flex-shrink: 0;
   display: block;
-}
-
-.brand h1 {
-  margin: 0;
-  font-size: 1.7rem;
-  color: var(--e-cream); /* Fixed missing var() */
-}
-
-.brand p {
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--e-black);
 }
 
 /* --- Navigation --- */
 nav {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center; /* Centers the navigation links */
   gap: 10px;
   padding: 0 0 16px 0;
 }
 
 nav a {
   text-decoration: none;
-  color: #111;
+  color: var(--e-black);
   border: 1px solid #ddd;
   padding: 8px 12px;
   border-radius: 8px;
   background: #fff;
   transition: all 0.2s ease;
+  font-weight: 700; /* Makes nav links bold Inter */
 }
 
 nav a[aria-current="page"] {
-  border-color: var(--e-red);
-  color: var(--e-red);
-  font-weight: 700;
+  border-color: var(--e-cream);
+  color: var(--e-cream);
 }
 
+http://googleusercontent.com/immersive_entry_chip/0
 /* --- Layout & Components --- */
 main { padding: 18px 0 28px 0; }
 
@@ -197,3 +198,4 @@ footer {
     text-align: center;
   }
 }
+
