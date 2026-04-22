@@ -68,3 +68,16 @@ app.post('/api/feedback', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+
+// --- ADMIN INTERFACE ---
+// Secret route to view the database in your browser
+app.get('/api/admin/view', (req, res) => {
+  db.all("SELECT * FROM inquiries", [], (err, inquiries) => {
+    db.all("SELECT * FROM feedback", [], (err, feedback) => {
+      res.json({
+        catering_inquiries: inquiries,
+        customer_feedback: feedback
+      });
+    });
+  });
+});
