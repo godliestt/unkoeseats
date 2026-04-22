@@ -1,16 +1,20 @@
 const express = require('express');
-const sqlite3 = require('sqlite3');
+const sqlite3 = require('sqlite3').verbose();
 const app = express();
+const port = 3000;
+
+// Connect to your new centralized database
 const db = new sqlite3.Database('./unko_e_eats.db');
 
+// Serve your front-end files from the public folder
+app.use(express.static('public'));
 app.use(express.json());
-app.use(express.static('public')); // Put your HTML/CSS/JS files here
 
-// Route to get the menu (Dynamic Web App requirement)
-app.get('/api/menu', (req, res) => {
-  db.all("SELECT * FROM menu", [], (err, rows) => {
-    res.json(rows);
-  });
+// Basic test route to see if the server is alive
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'Unko Es Eats Backend is Operational' });
 });
 
-app.listen(3000, () => console.log('Server running at http://localhost:3000'));
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
