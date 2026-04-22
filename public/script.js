@@ -9,6 +9,37 @@ function setActiveNav() {
   });
 }
 
+// NEW: Fetches menu from the database and builds the HTML cards
+async function loadMenu() {
+  try {
+    const response = await fetch('/api/menu');
+    const menuItems = await response.json();
+    
+    const menuContainer = document.querySelector('.grid.two');
+    if (!menuContainer) return;
+
+    menuContainer.innerHTML = ''; // Clears the hardcoded HTML items
+
+    menuItems.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.setAttribute('data-menu-item', '');
+      card.setAttribute('data-tags', item.category);
+      
+      card.innerHTML = `
+        <h3>${item.name} - $${item.price}</h3>
+        <p class="muted">Freshly prepared local favorite.</p>
+      `;
+      menuContainer.appendChild(card);
+    });
+
+    // Initialize the filter logic AFTER the new cards are built
+    menuFilterInit();
+  } catch (err) {
+    console.error('Error fetching menu:', err);
+  }
+}
+
 function menuFilterInit() {
   const filter = document.getElementById("menuFilter");
   const cards = document.querySelectorAll("[data-menu-item]");
@@ -31,7 +62,7 @@ function contactFormInit() {
     if (!form) return;
     const msg = document.getElementById("contactMsg");
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
         
         const name = form.elements["name"]?.value.trim();
@@ -46,25 +77,32 @@ function contactFormInit() {
             return;
         }
 
-        // NEW: Logic to save to LocalStorage
-        const contactEntry = {
-            name,
-            phone,
-            email,
-            details,
-            inquiries: inquiryTypes,
-            submittedAt: new Date().toISOString()
-        };
+        // REPLACED: Sends data to the server instead of LocalStorage
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name,
+                    phone,
+                    email,
+                    details,
+                    type: inquiryTypes.join(", ")
+                })
+            });
 
-        const key = "unkoe_contacts";
-        const existingInquiries = JSON.parse(localStorage.getItem(key) || "[]");
-        existingInquiries.unshift(contactEntry);
-        localStorage.setItem(key, JSON.stringify(existingInquiries.slice(0, 20)));
-
-        // Show confirmation
-        msg.className = "notice good";
-        msg.textContent = `Thanks, ${name}! Your message has been saved to the browser.`;
-        form.reset();
+            if (response.ok) {
+                msg.className = "notice good";
+                msg.textContent = `Thanks, ${name}! Your message has been sent to our database.`;
+                form.reset();
+            } else {
+                throw new Error("Server response was not ok");
+            }
+        } catch (error) {
+            msg.className = "notice bad";
+            msg.textContent = "Error sending message. Please check the server.";
+            console.error(error);
+        }
     });
 }
 
@@ -74,7 +112,7 @@ function feedbackFormInit() {
 
   const msg = document.getElementById("feedbackMsg");
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const name = form.elements["name"]?.value.trim();
@@ -87,31 +125,36 @@ function feedbackFormInit() {
       return;
     }
 
-    // store locally (still front-end only)
-    const entry = {
-      name: name || "Anonymous",
-      rating: Number(rating),
-      comments,
-      createdAt: new Date().toISOString()
-    };
+    // REPLACED: Sends data to the server instead of LocalStorage
+    try {
+        const response = await fetch('/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: name || "Anonymous",
+                rating: Number(rating),
+                comments
+            })
+        });
 
-    const key = "unkoe_feedback";
-    const existing = JSON.parse(localStorage.getItem(key) || "[]");
-    existing.unshift(entry);
-    localStorage.setItem(key, JSON.stringify(existing.slice(0, 20)));
-
-    msg.className = "notice good";
-    msg.textContent = "Mahalo! Your feedback is greatly appreciated.";
-
-    form.reset();
+        if (response.ok) {
+            msg.className = "notice good";
+            msg.textContent = "Mahalo! Your feedback has been saved to our database.";
+            form.reset();
+        } else {
+            throw new Error("Server response was not ok");
+        }
+    } catch (error) {
+        msg.className = "notice bad";
+        msg.textContent = "Error saving feedback. Please check the server.";
+        console.error(error);
+    }
   });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   setActiveNav();
-  menuFilterInit();
+  loadMenu(); // This handles loading the items AND triggering menuFilterInit
   contactFormInit();
   feedbackFormInit();
-
 });
-
