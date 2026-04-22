@@ -62,6 +62,12 @@ app.get('/api/menu', (req, res) => {
 // 2. Submit Contact Inquiry (Storage logic)
 app.post('/api/contact', (req, res) => {
   const { name, email, phone, details, type } = req.body;
+
+  // --- SERVER-SIDE VALIDATION ---
+  if (!name || !email || !details || name.trim() === '' || email.trim() === '' || details.trim() === '') {
+    return res.status(400).json({ error: 'Validation failed: Name, Email, and Description are required.' });
+  }
+
   const sql = "INSERT INTO inquiries (name, email, phone, details, type, submittedAt) VALUES (?, ?, ?, ?, ?, ?)";
   const params = [name, email, phone, details, type, new Date().toISOString()];
   
@@ -74,6 +80,12 @@ app.post('/api/contact', (req, res) => {
 // 3. Submit Feedback (Storage logic)
 app.post('/api/feedback', (req, res) => {
   const { name, rating, comments } = req.body;
+
+  // --- SERVER-SIDE VALIDATION ---
+  if (!rating || !comments || comments.trim() === '') {
+    return res.status(400).json({ error: 'Validation failed: Rating and Comments are required.' });
+  }
+
   const sql = "INSERT INTO feedback (name, rating, comments, createdAt) VALUES (?, ?, ?, ?)";
   const params = [name, rating, comments, new Date().toISOString()];
   
