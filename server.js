@@ -3,18 +3,21 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const port = 3000;
 
-// Connect to your new centralized database
 const db = new sqlite3.Database('./unko_e_eats.db');
 
-// Serve your front-end files from the public folder
+// Create the tables (Your Project Plan: "Design the tables")
+db.serialize(() => {
+  // Menu Table
+  db.run("CREATE TABLE IF NOT EXISTS menu (id INTEGER PRIMARY KEY, name TEXT, price REAL, category TEXT)");
+  
+  // Inquiries Table (For your Contact Form)
+  db.run("CREATE TABLE IF NOT EXISTS inquiries (id INTEGER PRIMARY KEY, name TEXT, email TEXT, details TEXT, type TEXT)");
+  
+  // Feedback Table (For your Feedback Form)
+  db.run("CREATE TABLE IF NOT EXISTS feedback (id INTEGER PRIMARY KEY, name TEXT, rating INTEGER, comments TEXT)");
+});
+
 app.use(express.static('public'));
 app.use(express.json());
 
-// Basic test route to see if the server is alive
-app.get('/api/status', (req, res) => {
-  res.json({ status: 'Unko Es Eats Backend is Operational' });
-});
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
