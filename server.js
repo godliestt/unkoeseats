@@ -33,6 +33,22 @@ db.serialize(() => {
 app.use(express.static('public'));
 app.use(express.json());
 
+// --- SECURITY MIDDLEWARE ---
+function checkPassword(req, res, next) {
+  // Grabs the credentials from the browser's login pop-up
+  const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+  const [username, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+
+  // Set your custom username and password here!
+  if (username === 'admin' && password === 'kapolei123') {
+    return next(); // Credentials match, let them through
+  }
+
+  // If wrong or missing, trigger the browser's built-in login prompt
+  res.set('WWW-Authenticate', 'Basic realm="Unko E Admin"');
+  res.status(401).send('Access denied. Proper credentials required.');
+}
+
 // --- API ROUTES ---
 
 // 1. Get Menu (Retrieval logic)
@@ -70,8 +86,13 @@ app.post('/api/feedback', (req, res) => {
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
 
 // --- ADMIN INTERFACE ---
-// Secret route to view the database in your browser
-app.get('/api/admin/view', (req, res) => {
+// 1. Secure Route to serve the HTML Dashboard
+app.get('/admin', checkPassword, (req, res) => {
+  res.sendFile(__dirname + '/admin.html');
+});
+
+// 2. Secure Route to serve the actual Database JSON
+app.get('/api/admin/view', checkPassword, (req, res) => {
   db.all("SELECT * FROM inquiries", [], (err, inquiries) => {
     db.all("SELECT * FROM feedback", [], (err, feedback) => {
       res.json({
