@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unko E's Eats | Admin Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <h2 style="color: var(--e-black); margin: 0;">Admin Dashboard</h2>
+      </div>
+      <nav>
+        <a href="index.html">Back to Storefront</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main class="container">
+    <section class="section">
+      <h2>Catering Inquiries</h2>
+      <div id="inquiriesContainer">Loading...</div>
+    </section>
+    
+    <section class="section">
+      <h2>Customer Feedback</h2>
+      <div id="feedbackContainer">Loading...</div>
+    </section>
+  </main>
+
+  <script>
+    async function loadAdminData() {
+      try {
+        // Fetches the raw JSON from your new route
+        const response = await fetch('/api/admin/view');
+        const data = await response.json();
+
+        // 1. Render Inquiries
+        const inqContainer = document.getElementById('inquiriesContainer');
+        if (data.catering_inquiries.length === 0) {
+          inqContainer.innerHTML = '<p class="muted">No inquiries yet.</p>';
+        } else {
+          inqContainer.innerHTML = data.catering_inquiries.map(inq => `
+            <div class="card" style="margin-bottom: 12px;">
+              <h3 style="color: var(--e-red);">${inq.name} - ${inq.type}</h3>
+              <p style="margin: 5px 0;"><strong>Email:</strong> ${inq.email} | <strong>Phone:</strong> ${inq.phone || 'N/A'}</p>
+              <p style="margin: 5px 0;"><strong>Details:</strong> ${inq.details}</p>
+              <p class="muted" style="font-size: 0.85rem; margin-top: 10px;">Submitted: ${new Date(inq.submittedAt).toLocaleString()}</p>
+            </div>
+          `).join('');
+        }
+
+        // 2. Render Feedback
+        const fbContainer = document.getElementById('feedbackContainer');
+        if (data.customer_feedback.length === 0) {
+          fbContainer.innerHTML = '<p class="muted">No feedback yet.</p>';
+        } else {
+          fbContainer.innerHTML = data.customer_feedback.map(fb => `
+            <div class="card" style="margin-bottom: 12px;">
+              <h3 style="color: var(--e-red);">${fb.name} - Rating: ${fb.rating}/5</h3>
+              <p style="margin: 5px 0;">${fb.comments}</p>
+              <p class="muted" style="font-size: 0.85rem; margin-top: 10px;">Submitted: ${new Date(fb.createdAt).toLocaleString()}</p>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('Error loading admin data:', err);
+        document.getElementById('inquiriesContainer').innerHTML = '<div class="notice bad">Error loading database.</div>';
+        document.getElementById('feedbackContainer').innerHTML = '<div class="notice bad">Error loading database.</div>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadAdminData);
+  </script>
+</body>
+</html>
